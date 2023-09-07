@@ -16,11 +16,11 @@ export const Statistics = ({
       ))}
       <StatListItem>
         Total:
-        <span>{total()}</span>
+        <span>{total}</span>
       </StatListItem>
       <StatListItem>
         Positive feedback:
-        <span>{positivePercentage()}%</span>
+        <span>{positivePercentage}%</span>
       </StatListItem>
     </StatList>
     <ButtonReload onClick={onReload}>Reset</ButtonReload>
@@ -28,8 +28,13 @@ export const Statistics = ({
 );
 
 Statistics.propTypes = {
-  entries: PropTypes.array,
-  total: PropTypes.func,
-  positivePercentage: PropTypes.func,
+  entries: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.string,
+      data: PropTypes.number,
+    })
+  ),
+  total: PropTypes.number,
+  positivePercentage: PropTypes.number,
   onReload: PropTypes.func,
 };
