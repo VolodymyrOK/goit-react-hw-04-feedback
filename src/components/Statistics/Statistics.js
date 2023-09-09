@@ -38,3 +38,4 @@ Statistics.propTypes = {
   positivePercentage: PropTypes.number,
   onReload: PropTypes.func,
 };
+

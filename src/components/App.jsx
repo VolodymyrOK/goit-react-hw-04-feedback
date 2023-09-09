@@ -14,12 +14,11 @@ export const App = () => {
   });
 
   const onReload = () => {
-    setReview(prevState => ({
-      ...prevState,
+    setReview({
       good: 0,
       neutral: 0,
       bad: 0,
-    }));
+    });
   };
 
   const { good, neutral, bad } = review;
