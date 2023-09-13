@@ -1,24 +1,21 @@
-import { useState } from 'react';
+import { useReducer } from 'react';
 import { GlobalStyle } from 'styles/GlobalStyles';
 import { Layout } from 'styles/Layout';
 import { Section } from './Section/Section';
 import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
 import { Statistics } from './Statistics/Statistics';
 import { Notification } from './Notification/Notification';
+import { init, reducer } from './Reducer/Reducer';
 
 export const App = () => {
-  const [review, setReview] = useState({
-    good: 0,
-    neutral: 0,
-    bad: 0,
-  });
+  const [review, dispatch] = useReducer(
+    reducer,
+    { good: 0, neutral: 0, bad: 0 },
+    init
+  );
 
   const onReload = () => {
-    setReview({
-      good: 0,
-      neutral: 0,
-      bad: 0,
-    });
+    dispatch({ type: 'reset', increase: { good: 0, neutral: 0, bad: 0 } });
   };
 
   const { good, neutral, bad } = review;
@@ -30,15 +27,14 @@ export const App = () => {
   );
 
   const onLeaveFeedback = key => {
-    setReview(prevState => ({
-      ...prevState,
-      [key]: review[key] + 1,
-    }));
+    dispatch({
+      type: key,
+      increase: 1,
+    });
   };
 
   const options = Object.keys(review);
   const entries = Object.entries(review);
-
   return (
     <Layout>
       <Section title="Please leave feedback">
